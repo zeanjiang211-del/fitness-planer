@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>专属训练与饮食规划</title>
+  <style>
+    :root{font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;color:#18201d;background:#f5f1e8}*{box-sizing:border-box}body{margin:0;background:linear-gradient(120deg,rgba(47,107,85,.16),transparent 36%),linear-gradient(240deg,rgba(188,76,53,.12),transparent 34%),#f5f1e8}main{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0 46px}.hero{min-height:260px;padding:34px;border-radius:8px;color:white;background:linear-gradient(135deg,#143329,#2f6b55 58%,#bc4c35);display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:end}.eyebrow{color:#d8f0dc}h1{font-size:clamp(2.1rem,6vw,4.6rem);line-height:1;margin:12px 0}h2,h3,p{margin-top:0}.hero p{max-width:680px;color:#f6f1e8;line-height:1.8}.heroBox{display:grid;gap:12px}.heroBox div{padding:18px;border:1px solid rgba(255,255,255,.24);border-radius:8px;background:rgba(255,255,255,.12)}.heroBox strong{display:block;font-size:2.3rem}.layout{display:grid;grid-template-columns:1.55fr .9fr;gap:18px;margin-top:18px}.panel,.card,.notes{border:1px solid #ddd4c1;border-radius:8px;background:rgba(255,252,245,.95);box-shadow:0 18px 42px rgba(48,41,28,.08)}.panel{padding:24px}.title{display:flex;gap:10px;align-items:flex-start;margin-bottom:18px}.title h2{margin:0 0 4px}.title p{margin:0;color:#68736b;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}label{display:grid;gap:8px;font-weight:700;color:#39433d}input,select,textarea{width:100%;border:1px solid #cfc5b0;border-radius:8px;background:#fffdf8;color:#18201d;font:inherit;outline:none}input,select{height:44px;padding:0 12px}input[type=file]{height:auto;padding:10px}textarea{min-height:76px;padding:11px 12px;line-height:1.55;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#2f6b55;box-shadow:0 0 0 3px rgba(47,107,85,.15)}button{min-height:44px;border-radius:8px;border:1px solid transparent;padding:0 18px;font-weight:800;cursor:pointer}.primary{background:#2f6b55;color:white}.secondary{background:#fffdf8;border-color:#cfc5b0;color:#2f3b35}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #e7dfd0}.row strong{white-space:nowrap}.tip,.result{margin-top:14px;padding:14px;border-radius:8px;background:#edf5ef;color:#405149;line-height:1.7}.error{margin-top:8px;padding:12px 14px;border-radius:8px;background:#fff0eb;color:#a33b24}.saved{color:#2f6b55;font-weight:800}.photoGrid{display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start}.photoPreview{width:100%;aspect-ratio:3/4;border:1px dashed #c6bda8;border-radius:8px;background:#fffdf8;display:grid;place-items:center;overflow:hidden;color:#6b746d;text-align:center;padding:12px}.photoPreview img{width:100%;height:100%;object-fit:cover}.plans{margin-top:22px}.planHead{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:14px}.pill{padding:10px 12px;border:1px solid #cfc5b0;border-radius:8px;background:#fffdf8;color:#2f6b55;font-weight:800}.planGrid{display:grid;grid-template-columns:repeat(7,minmax(240px,1fr));gap:14px;overflow-x:auto;padding-bottom:8px}.card{padding:16px;display:grid;gap:12px}.day{display:flex;justify-content:space-between;align-items:center}.day b{font-size:1.08rem}.day span{padding:5px 8px;border-radius:999px;background:#edf5ef;color:#2f6b55;font-weight:800;font-size:.82rem}.titleInput{font-weight:900}.notes{display:flex;gap:12px;margin-top:16px;padding:18px}.notes h3{margin:0 0 8px}.notes p{margin:0 0 6px;color:#4d5b52;line-height:1.7}@media(max-width:980px){main{width:min(100% - 24px,780px)}.hero,.layout,.photoGrid{grid-template-columns:1fr}.heroBox{grid-template-columns:repeat(2,1fr)}.grid,.two,.three{grid-template-columns:repeat(2,1fr)}.photoPreview{max-width:260px}}@media(max-width:560px){main{width:min(100% - 18px,520px);padding-top:10px}.hero{min-height:390px;padding:22px}.heroBox,.grid,.two,.three{grid-template-columns:1fr}.panel{padding:18px}.planHead,.notes{align-items:flex-start;flex-direction:column}.primary,.secondary{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div>
+      <span class="eyebrow">中文 · 后端 API · 可部署分享</span>
+      <h1>专属训练与饮食规划</h1>
+      <p>输入身体数据、目标和体脂估算信息，生成可编辑的训练安排、热量目标、三大营养素和具体食物克重。</p>
+    </div>
+    <div class="heroBox">
+      <div><span>预估热量</span><strong id="heroCal">0</strong><small>千卡/日</small></div>
+      <div><span>蛋白质</span><strong id="heroProtein">0</strong><small>克/日</small></div>
+    </div>
+  </section>
+
+  <section class="layout">
+    <form class="panel" id="profileForm">
+      <div class="title"><div>健康</div><div><h2>个人资料</h2><p>部署后数据由后端计算，计划仍保存在当前浏览器。</p></div></div>
+      <div class="grid">
+        <label>体重（公斤）<input id="weightKg" type="number" min="35" max="220"></label>
+        <label>体脂率（%）<input id="bodyFatPercent" type="number" min="5" max="60"></label>
+        <label>身高（厘米）<input id="heightCm" type="number" min="120" max="230"></label>
+        <label>年龄<input id="age" type="number" min="16" max="80"></label>
+      </div>
+      <div class="grid">
+        <label>性别<select id="sex"><option value="male">男</option><option value="female">女</option></select></label>
+        <label>活动量<select id="activityLevel"><option value="sedentary">久坐</option><option value="light">轻度活动</option><option value="moderate">中等活动</option><option value="high">高活动量</option></select></label>
+        <label>训练目标<select id="goal"><option value="fat_loss">减脂</option><option value="muscle_gain">增肌</option><option value="recomposition">塑形</option><option value="maintenance">维持</option></select></label>
+        <label>每周训练天数<input id="trainingDaysPerWeek" type="number" min="2" max="6"></label>
+      </div>
+      <div id="errors"></div>
+      <div class="actions"><button class="primary" type="submit">生成计划</button><button class="secondary" type="button" id="resetBtn">清空</button></div>
+      <p class="saved" id="savedHint"></p>
+    </form>
+    <aside class="panel">
+      <div class="title"><div>营养</div><div><h2>营养目标</h2><p>根据当前表单实时估算。</p></div></div>
+      <div class="row"><span>每日热量</span><strong id="calories">0 千卡</strong></div>
+      <div class="row"><span>蛋白质</span><strong id="protein">0 克</strong></div>
+      <div class="row"><span>脂肪</span><strong id="fat">0 克</strong></div>
+      <div class="row"><span>碳水</span><strong id="carbs">0 克</strong></div>
+      <p class="tip">免责声明：本工具仅提供健康管理参考，体脂估算不是医学测量，不能替代医生、营养师或专业教练建议。</p>
+    </aside>
+  </section>
+
+  <section class="panel" style="margin-top:18px">
+    <div class="title"><div>围度</div><div><h2>围度体脂测算</h2><p>使用美国海军围度公式，并结合 BMI 年龄修正法做辅助参考。</p></div></div>
+    <div class="grid">
+      <label>颈围（厘米）<input id="neckCm" type="number" placeholder="例如 38"></label>
+      <label>腰围（厘米）<input id="waistCm" type="number" placeholder="肚脐水平"></label>
+      <label>臀围（厘米，女性必填）<input id="hipCm" type="number" placeholder="男性可不填"></label>
+      <label>操作<button class="secondary" type="button" id="measureBtn">用围度估算体脂率</button></label>
+    </div>
+    <div class="result" id="measureResult">输入围度后可估算体脂率，并一键写入上方体脂率字段。</div>
+  </section>
+
+  <section class="panel" style="margin-top:18px">
+    <div class="title"><div>照片</div><div><h2>身材照片与视觉特征估算</h2><p>照片只在本地预览。未配置 AI 时，使用你对照片特征的选择进行估算；配置 AI 后可调用后端视觉接口。</p></div></div>
+    <div class="photoGrid">
+      <div>
+        <div class="photoPreview" id="photoPreview">上传照片后在这里预览</div>
+        <label style="margin-top:10px">身材照片<input id="bodyPhoto" type="file" accept="image/*"></label>
+      </div>
+      <div>
+        <div class="grid two">
+          <label>腹部线条<select id="abdomen"><option value="1">清晰腹肌/马甲线</option><option value="2">轻微线条</option><option value="3" selected>基本无明显线条</option><option value="4">腹部脂肪较明显</option><option value="5">腹部脂肪堆积明显</option></select></label>
+          <label>腰部轮廓<select id="waist"><option value="1">腰线非常清楚</option><option value="2">腰线较清楚</option><option value="3" selected>腰线普通</option><option value="4">腰围偏明显</option><option value="5">腰腹整体偏圆</option></select></label>
+          <label>肌肉分离度<select id="muscle"><option value="1">肩臂腿分离明显</option><option value="2">局部线条可见</option><option value="3" selected>线条一般</option><option value="4">肌肉轮廓较少</option><option value="5">几乎无肌肉线条</option></select></label>
+          <label>脂肪分布<select id="distribution"><option value="1">四肢和躯干都偏薄</option><option value="2">轻微集中在腰腹</option><option value="3" selected>分布普通</option><option value="4">腰腹/臀腿较明显</option><option value="5">多部位明显堆积</option></select></label>
+        </div>
+        <div class="actions"><button class="secondary" type="button" id="visualBtn">用视觉特征估算</button><button class="secondary" type="button" id="aiPhotoBtn">尝试 AI 照片估算</button></div>
+        <div class="result" id="visualResult">选择视觉特征后可估算体脂率。照片估算误差较大，建议优先使用围度法。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="planSection" hidden>
+    <div class="planHead"><div class="title"><div>训练</div><div><h2>7 天训练与饮食计划</h2><p>可以直接修改文字，系统会自动保存。</p></div></div><div class="pill">本地保存</div></div>
+    <div class="planGrid" id="planGrid"></div>
+    <div class="notes"><div>提示</div><div><h3>执行提示</h3><div id="notes"></div></div></div>
+  </section>
+</main>
+
+<script>
+const PROFILE_KEY="fitness.profile.v1"; const PLAN_KEY="fitness.plan.v1";
+const defaults={weightKg:70,bodyFatPercent:20,heightCm:172,age:30,sex:"male",activityLevel:"light",goal:"fat_loss",trainingDaysPerWeek:4};
+const ids=["weightKg","bodyFatPercent","heightCm","age","sex","activityLevel","goal","trainingDaysPerWeek"];
+let imageDataUrl="";
+
+const $=(id)=>document.getElementById(id);
+const clamp=(v,min,max)=>Math.min(Math.max(Number(v)||0,min),max);
+const roundTo=(v,s)=>Math.round(v/s)*s;
+function load(k,f){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):f}catch{return f}}
+function profile(){const p={};ids.forEach(id=>{const x=$(id);p[id]=x.type==="number"?Number(x.value):x.value});return p}
+function fill(p){ids.forEach(id=>$(id).value=p[id])}
+function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]))}
+async function postJson(url,payload){const res=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload)});const data=await res.json();if(!res.ok)throw data;return data}
+
+function localPlan(p){
+  const lean=p.weightKg*(1-p.bodyFatPercent/100); const mif=10*p.weightKg+6.25*p.heightCm-5*p.age+(p.sex==="male"?5:-161); const bmr=(370+21.6*lean+mif)/2;
+  const cal=roundTo(bmr*({sedentary:1.2,light:1.38,moderate:1.55,high:1.72}[p.activityLevel])*({fat_loss:.82,muscle_gain:1.1,recomposition:.95,maintenance:1}[p.goal]),25);
+  const protein=Math.round(p.weightKg*({fat_loss:2,muscle_gain:1.8,recomposition:2,maintenance:1.6}[p.goal])); const fat=Math.round(clamp(cal*.25/9,p.weightKg*.7,p.weightKg*1.1)); const carbs=Math.max(50,Math.round((cal-protein*4-fat*9)/4));
+  return {dailyCalories:cal,macros:{proteinG:protein,fatG:fat,carbsG:carbs},weeklyTrainingPlan:buildWeek(p,{proteinG:protein,fatG:fat,carbsG:carbs}),notes:["当前为本地降级计算。部署后将由后端 API 生成完整计划。","食物克重按生重或包装标注重量估算。"],createdAt:new Date().toISOString(),editedAt:new Date().toISOString()};
+}
+function mealText(goal,m){const rice=roundTo(m.carbsG*1.15,10),proteinFood=roundTo(m.proteinG*1.1,10),oil=Math.max(10,roundTo(m.fatG*.45,5)),oats=goal==="muscle_gain"?70:50;return [`早餐：燕麦 ${oats} 克、鸡蛋 1 到 2 个、牛奶或豆浆 200 到 300 毫升`,`午餐：米饭 ${roundTo(rice*.55,10)} 克、鸡胸/鱼/豆腐 ${roundTo(proteinFood*.45,10)} 克、蔬菜 250 克、烹饪油 ${roundTo(oil*.45,5)} 克`,`加餐：水果 150 到 250 克、酸奶 150 到 200 克`,`晚餐：主食 ${roundTo(rice*.35,10)} 克、瘦肉或豆制品 ${roundTo(proteinFood*.35,10)} 克、蔬菜 250 克`]}
+function buildWeek(p,m){const days=["周一","周二","周三","周四","周五","周六","周日"],kinds=["rest","rest","rest","rest","rest","rest","rest"],order=[0,1,3,4,5,2];order.slice(0,clamp(p.trainingDaysPerWeek,2,6)).forEach(i=>kinds[i]="strength");for(let i=0;i<7&&kinds.filter(x=>x==="cardio").length<(p.goal==="muscle_gain"?1:2);i++)if(kinds[i]==="rest")kinds[i]="cardio";const meals=mealText(p.goal,m);return kinds.map((k,i)=>k==="strength"?{day:days[i],kind:k,title:"力量训练",focus:"复合动作为主，保持动作质量。",exercises:["深蹲或腿举 4 组","推举或卧推 4 组","划船或下拉 4 组","核心训练 3 组"],meals}:k==="cardio"?{day:days[i],kind:k,title:"低强度有氧与核心",focus:"保持能说短句的强度。",exercises:["快走或骑行 30 到 45 分钟","平板支撑 3 组","拉伸 8 分钟"],meals}:{day:days[i],kind:k,title:"恢复日",focus:"轻活动和睡眠优先。",exercises:["轻松散步 20 到 30 分钟","拉伸 10 分钟"],meals})}
+function preview(){const plan=localPlan(profile());$("heroCal").textContent=plan.dailyCalories;$("heroProtein").textContent=plan.macros.proteinG;$("calories").textContent=plan.dailyCalories+" 千卡";$("protein").textContent=plan.macros.proteinG+" 克";$("fat").textContent=plan.macros.fatG+" 克";$("carbs").textContent=plan.macros.carbsG+" 克"}
+function render(plan){$("planSection").hidden=false;$("planGrid").innerHTML="";plan.weeklyTrainingPlan.forEach((d,i)=>{const card=document.createElement("article");card.className="card";card.innerHTML=`<div class="day"><b>${d.day}</b><span>${d.kind==="strength"?"力量":d.kind==="cardio"?"有氧":"恢复"}</span></div><input class="titleInput"><textarea></textarea><label>训练内容<textarea></textarea></label><label>饮食克重参考<textarea></textarea></label>`;const f=card.querySelectorAll("input,textarea");f[0].value=d.title;f[1].value=d.focus;f[2].value=d.exercises.join(String.fromCharCode(10));f[3].value=d.meals.join(String.fromCharCode(10));f[0].oninput=e=>saveEdit(plan,i,"title",e.target.value);f[1].oninput=e=>saveEdit(plan,i,"focus",e.target.value);f[2].oninput=e=>saveEdit(plan,i,"exercises",e.target.value.split(String.fromCharCode(10)).filter(Boolean));f[3].oninput=e=>saveEdit(plan,i,"meals",e.target.value.split(String.fromCharCode(10)).filter(Boolean));$("planGrid").appendChild(card)});$("notes").innerHTML=plan.notes.map(n=>`<p>${escapeHtml(n)}</p>`).join("")}
+function saveEdit(plan,i,key,val){plan.weeklyTrainingPlan[i][key]=val;plan.editedAt=new Date().toISOString();localStorage.setItem(PLAN_KEY,JSON.stringify(plan));$("savedHint").textContent="修改已保存。"}
+
+fill(load(PROFILE_KEY,defaults));preview();const old=load(PLAN_KEY,null);if(old)render(old);ids.forEach(id=>$(id).addEventListener("input",preview));
+$("profileForm").onsubmit=async(e)=>{e.preventDefault();$("errors").innerHTML="";$("savedHint").textContent="";const p=profile();try{let plan;try{plan=await postJson("/api/plan",{profile:p})}catch{plan=localPlan(p)}localStorage.setItem(PROFILE_KEY,JSON.stringify(p));localStorage.setItem(PLAN_KEY,JSON.stringify(plan));$("savedHint").textContent="已生成并保存到本机浏览器。";render(plan)}catch(err){const errors=err.errors||[err.error||"生成失败"];$("errors").innerHTML=`<div class="error">${errors.map(x=>`<p>${escapeHtml(x)}</p>`).join("")}</div>`}};
+$("resetBtn").onclick=()=>{localStorage.clear();fill(defaults);preview();$("planSection").hidden=true;$("savedHint").textContent="已清空本地数据。";$("errors").innerHTML=""};
+$("measureBtn").onclick=async()=>{const p=profile();const payload={...p,neckCm:Number($("neckCm").value),waistCm:Number($("waistCm").value),hipCm:Number($("hipCm").value)};try{const r=await postJson("/api/body-fat/measurements",payload);$("bodyFatPercent").value=r.bodyFatPercent;preview();$("measureResult").innerHTML=`估算体脂率：<b>${r.bodyFatPercent}%</b>。${r.estimates.map(x=>`${x.method} ${x.bodyFatPercent}%`).join("；")} 已写入上方体脂率。`}catch(err){$("measureResult").innerHTML=`<span style="color:#a33b24">${(err.errors||[err.error||"测算失败"]).map(escapeHtml).join("；")}</span>`}};
+$("visualBtn").onclick=async()=>{const payload={sex:$("sex").value,abdomen:$("abdomen").value,waist:$("waist").value,muscle:$("muscle").value,distribution:$("distribution").value};let r;try{r=await postJson("/api/body-fat/visual-estimate",payload)}catch{const score=clamp(Number(payload.abdomen)*.35+Number(payload.waist)*.25+Number(payload.muscle)*.2+Number(payload.distribution)*.2,1,5);const ranges=payload.sex==="female"?[[18,21],[22,25],[26,30],[31,36],[37,45]]:[[10,13],[14,17],[18,22],[23,28],[29,36]];const range=ranges[Math.round(score)-1];r={bodyFatPercent:Math.round((range[0]+range[1])/2),range}}$("bodyFatPercent").value=r.bodyFatPercent;preview();$("visualResult").innerHTML=`视觉特征估算：<b>${r.bodyFatPercent}%</b>，范围约 ${r.range[0]}% - ${r.range[1]}%。已写入体脂率。`};
+$("bodyPhoto").onchange=(e)=>{const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{imageDataUrl=reader.result;$("photoPreview").innerHTML=`<img alt="身材照片预览" src="${imageDataUrl}">`};reader.readAsDataURL(file)};
+$("aiPhotoBtn").onclick=async()=>{if(!imageDataUrl){$("visualResult").textContent="请先上传照片。";return}try{const r=await postJson("/api/body-fat/photo-ai",{sex:$("sex").value,imageDataUrl});$("bodyFatPercent").value=r.bodyFatPercent;preview();$("visualResult").innerHTML=`AI 照片估算：<b>${r.bodyFatPercent}%</b>，范围约 ${r.range?.[0]||""}% - ${r.range?.[1]||""}%。${(r.observations||[]).map(escapeHtml).join("；")}`}catch(err){$("visualResult").innerHTML=`AI 照片估算不可用：${escapeHtml(err.error||"后端未配置 AI。请使用视觉特征估算或围度法。")}`}};
+</script>
+</body>
+</html>
